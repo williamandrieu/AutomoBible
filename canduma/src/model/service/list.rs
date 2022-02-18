@@ -1,21 +1,21 @@
 use actix_web::web;
 use diesel::prelude::*;
 
-use crate::brand::model::Brand;
 use crate::database::{db_connection, Pool};
 use crate::database::PooledConnection;
 use crate::errors::{ServiceResult};
+use crate::model::model::Model;
 
 
-pub fn list_all(pool: web::Data<Pool>,) -> Vec<Brand> {
-    use crate::schema::brands::dsl::{brands};
+pub fn list_all(pool: web::Data<Pool>,) -> Vec<Model> {
+    use crate::schema::models::dsl::{models};
 
     let conn = &db_connection(&pool).unwrap();
 
-    let _brands: Vec<Brand> = brands
-        .load::<Brand>(conn).unwrap();
+    let _models: Vec<Model> = models
+        .load::<Model>(conn).unwrap();
 
-    _brands
+    _models
 }
 
 
@@ -23,12 +23,12 @@ pub(crate) fn list(
     pool: web::Data<Pool>,
     limit: i32,
     offset: i32,
-) -> ServiceResult<Vec<Brand>> {
-    use crate::schema::brands::dsl::*;
+) -> ServiceResult<Vec<Model>> {
+    use crate::schema::models::dsl::*;
     let conn: &PooledConnection = &db_connection(&pool)?;
 
-    Ok(brands
+    Ok(models
         .limit(limit as i64)
         .offset(offset as i64)
-        .load::<Brand>(conn)?)
+        .load::<Model>(conn)?)
 }

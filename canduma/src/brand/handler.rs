@@ -3,8 +3,7 @@ use crate::brand::model::BrandData;
 use crate::brand::service as brand;
 use crate::database::Pool;
 use crate::errors::ServiceError;
-use actix_web::{web, Error, FromRequest, HttpRequest, HttpResponse};
-use futures::FutureExt;
+use actix_web::{web, HttpResponse};
 
 pub async fn create(
     brand_data: web::Json<BrandData>,

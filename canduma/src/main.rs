@@ -13,6 +13,7 @@ mod jwt;
 mod schema;
 mod user;
 mod brand;
+mod model;
 
 use actix_identity::{CookieIdentityPolicy, IdentityService};
 use actix_web::{App, HttpServer, web};
@@ -72,6 +73,7 @@ async fn main() -> std::io::Result<()> {
             // Sets routes via secondary files
             .configure(user::route)
             .configure(brand::route)
+            .configure(model::route)
             .configure(graphql::route)
     })
     // Running at `format!("{}:{}",port,"0.0.0.0")`
